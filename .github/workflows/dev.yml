@@ -31,7 +31,7 @@ jobs:
           AWS_DEFAULT_REGION: ${{ secrets.PROD_AWS_REGION}}
 
       - name: "Packer validate"
-        run: packer validate -var-file="dev.pkrvars.hcl" .
+        run: packer validate -var-file="dev.pkrtfvars.hcl" .
         working-directory: ./packer/
 
       - name: "Packer Format"
@@ -40,7 +40,7 @@ jobs:
 
 
       - name: "Packer build image"
-        run: packer build -var-file="dev.pkrvars.hcl".
+        run: packer build -var-file="dev.pkrtfvars.hcl".
         working-directory: ./packer/
 
       - name: "List Current working directory"
