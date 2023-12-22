@@ -26,7 +26,7 @@ jobs:
         run: packer init .
         working-directory: ./packer/
         env:
-          AWS_ACCESS_KEY_ID: ${{ secretsPROD_AWS_KEY_ID}}
+          AWS_ACCESS_KEY_ID: ${{ secrets.PROD_AWS_KEY_ID}}
           AWS_SECRET_ACCESS_KEY: ${{secrets.PROD_SECRET_ID}}
           AWS_DEFAULT_REGION: ${{ secrets.PROD_AWS_REGION}}
 
@@ -40,8 +40,13 @@ jobs:
 
 
       - name: "Packer build image"
-        run: packer build -var-file="prod.pkrvars.hcl".
-        working-directory: ./packer/
+          run: packer build -var-file="prod.pkrvars.hcl".
+          working-directory: ./packer/
+          env:
+            AWS_ACCESS_KEY_ID: ${{ secrets.PROD_AWS_KEY_ID}}
+            AWS_SECRET_ACCESS_KEY: ${{secrets.PROD_SECRET_ID}}
+            AWS_DEFAULT_REGION: ${{ secrets.PROD_AWS_REGION}}
+
 
       - name: "List Current working directory"
         run: |
